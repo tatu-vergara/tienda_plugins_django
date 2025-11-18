@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{# Cambia el <title> solo para esta página #}
+{% block title %}
+    Categorías · RetroFX
+{% endblock %}
+
+{# (Opcional) CSS específico para esta página #}
+{% block extra_css %}
+    <style>
+        .tabla-categorias th {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Categorías</h1>
+
+    <p class="page-subtitle">
+        Organiza tus plug-ins por familias: delays, reverbs, distorsiones y más.
+    </p>
+
+    <p>
+        <a href="{% url 'index' %}">← Volver al inicio</a>
+    </p>
+
+    <p>
+        <a href="{% url 'crear_categoria' %}" class="btn btn-primary">
+            ➕ Crear nueva categoría
+        </a>
+    </p>
+
+    <table class="tabla-categorias">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.id }}</td>
+                    <td>{{ categoria.nombre }}</td>
+                    <td>{{ categoria.descripcion }}</td>
+                    <td>
+                        <a href="{% url 'editar_categoria' categoria.id %}">Editar</a> |
+                        <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No hay categorías registradas.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

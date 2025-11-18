@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Analítica de productos · RetroFX{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Analítica de productos</h1>
+    <p class="page-subtitle">
+        Ejemplos de consultas avanzadas realizadas con el ORM de Django y con SQL raw().
+    </p>
+
+    <h2>1. Productos con precio &gt; 10 (filter)</h2>
+    <ul>
+        {% for p in productos_caros %}
+            <li>{{ p.nombre }} – {{ p.precio }}</li>
+        {% empty %}
+            <li>No hay productos con precio &gt; 10.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>2. Productos que NO son de la categoría "Dinámica" (exclude)</h2>
+    <ul>
+        {% for p in productos_no_dinamica %}
+            <li>{{ p.nombre }} – {{ p.categoria.nombre }}</li>
+        {% empty %}
+            <li>No hay productos fuera de la categoría "Dinámica".</li>
+        {% endfor %}
+    </ul>
+
+    <h2>3. Categorías con número de productos y precio promedio (annotate)</h2>
+    <ul>
+        {% for c in categorias_stats %}
+            <li>
+                {{ c.nombre }}:
+                {{ c.num_productos }} producto(s),
+                precio promedio: {{ c.precio_promedio|default:"(sin datos)" }}
+            </li>
+        {% empty %}
+            <li>No hay categorías registradas.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>4. SQL raw(): productos con precio &gt; 10</h2>
+    <p>
+        Consulta ejecutada:
+        <code>SELECT id, nombre, precio, categoria_id FROM tienda_producto WHERE precio &gt; 10.00</code>
+    </p>
+    <ul>
+        {% for p in productos_raw %}
+            <li>{{ p.nombre }} – {{ p.precio }}</li>
+        {% empty %}
+            <li>No hay resultados para la consulta SQL raw().</li>
+        {% endfor %}
+    </ul>
+
+    <p>
+        <a href="{% url 'lista_productos' %}" class="btn">← Volver a productos</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{# Cambia el <title> de esta página #}
+{% block title %}
+    Etiquetas · RetroFX
+{% endblock %}
+
+{# (Opcional) CSS específico para esta página #}
+{% block extra_css %}
+    <style>
+        .tabla-etiquetas th {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Etiquetas</h1>
+
+    <p class="page-subtitle">
+        Usa etiquetas para filtrar y combinar plug-ins por carácter, uso o género.
+    </p>
+
+    <p>
+        <a href="{% url 'index' %}">← Volver al inicio</a>
+    </p>
+
+    <p>
+        <a href="{% url 'crear_etiqueta' %}" class="btn btn-primary">
+            ➕ Crear nueva etiqueta
+        </a>
+    </p>
+
+    <table class="tabla-etiquetas">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for etiqueta in etiquetas %}
+                <tr>
+                    <td>{{ etiqueta.id }}</td>
+                    <td>{{ etiqueta.nombre }}</td>
+                    <td>
+                        <a href="{% url 'editar_etiqueta' etiqueta.id %}">Editar</a> |
+                        <a href="{% url 'eliminar_etiqueta' etiqueta.id %}" class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No hay etiquetas registradas.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

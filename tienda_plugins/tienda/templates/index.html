@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Tienda de tus plug-ins favoritos{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Tienda de tus plug-ins favoritos</h1>
+    <p class="page-subtitle">
+        Plataforma interna para gestionar productos, categorías y etiquetas
+        de nuestra tienda de plug-ins.
+    </p>
+
+    <p>
+        Desde aquí puedes:
+    </p>
+    <ul>
+        <li>Revisar y administrar <a href="{% url 'lista_productos' %}">plug-ins</a>.</li>
+        <li>Gestionar <a href="{% url 'lista_categorias' %}">categorías de productos</a>.</li>
+        <li>Organizar <a href="{% url 'lista_etiquetas' %}">etiquetas</a> (tags) para los plug-ins.</li>
+    </ul>
+{% endblock %}

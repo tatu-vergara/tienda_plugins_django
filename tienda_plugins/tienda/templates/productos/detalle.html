@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Detalle · {{ producto.nombre }} · TatuFX
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Detalle de {{ producto.nombre }}</h1>
+
+    <p class="page-subtitle">
+        Información completa del plug-in seleccionado.
+    </p>
+
+    <p>
+        <a href="{% url 'lista_productos' %}">← Volver a la lista</a>
+    </p>
+
+    <ul>
+        <li><strong>ID:</strong> {{ producto.id }}</li>
+        <li><strong>Nombre:</strong> {{ producto.nombre }}</li>
+        <li><strong>Descripción:</strong> {{ producto.descripcion }}</li>
+        <li><strong>Precio:</strong> ${{ producto.precio }}</li>
+        <li><strong>Categoría:</strong> {{ producto.categoria.nombre }}</li>
+        <li>
+            <strong>Etiquetas:</strong>
+            {% for etiqueta in producto.etiquetas.all %}
+                {{ etiqueta.nombre }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                (sin etiquetas)
+            {% endfor %}
+        </li>
+
+        {# --- Aquí integramos DetalleProducto --- #}
+        {% if detalle %}
+            <li><strong>Dimensiones:</strong> {{ detalle.dimensiones|default:"No especificadas" }}</li>
+            <li>
+                <strong>Peso de descarga:</strong>
+                {% if detalle.peso_mb %}
+                    {{ detalle.peso_mb }} MB
+                {% else %}
+                    No especificado
+                {% endif %}
+            </li>
+        {% else %}
+            <li><strong>Dimensiones:</strong> No especificadas</li>
+            <li><strong>Peso de descarga:</strong> No especificado</li>
+        {% endif %}
+    </ul>
+
+    <p>
+        <a href="{% url 'editar_producto' producto.id %}" class="btn">
+            Editar
+        </a>
+        <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger">
+            Eliminar
+        </a>
+    </p>
+{% endblock %}

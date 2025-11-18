@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if etiqueta %}Editar etiqueta{% else %}Crear etiqueta{% endif %} · RetroFX
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .form-panel form p {
+            margin-bottom: 12px;
+        }
+
+        .form-panel button {
+            margin-top: 8px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">
+        {% if etiqueta %}Editar etiqueta{% else %}Crear etiqueta{% endif %}
+    </h1>
+
+    <p class="page-subtitle">
+        Define o ajusta etiquetas para clasificar tus plug-ins RetroFX.
+    </p>
+
+    <p>
+        <a href="{% url 'lista_etiquetas' %}">← Volver a la lista de etiquetas</a>
+    </p>
+
+    <div class="form-panel">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">
+                {% if etiqueta %}Guardar cambios{% else %}Crear{% endif %}
+            </button>
+        </form>
+    </div>
+{% endblock %}

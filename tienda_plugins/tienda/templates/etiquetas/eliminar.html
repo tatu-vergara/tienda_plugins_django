@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Eliminar etiqueta · RetroFX
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Eliminar etiqueta</h1>
+
+    <p class="page-subtitle">
+        Esta acción no se puede deshacer.
+    </p>
+
+    <p>
+        ¿Estás seguro de que quieres eliminar la etiqueta
+        <strong>{{ etiqueta.nombre }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            Sí, eliminar
+        </button>
+        <a href="{% url 'lista_etiquetas' %}" class="btn">
+            Cancelar
+        </a>
+    </form>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Editar {{ producto.nombre }} · TatuFX
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .form-panel form p {
+            margin-bottom: 12px;
+        }
+
+        .form-panel button {
+            margin-top: 8px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="page-title">Editar {{ producto.nombre }}</h1>
+    <p class="page-subtitle">
+        Actualiza los datos del producto y sus detalles técnicos.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>Datos del producto</h2>
+        {{ form_producto.as_p }}
+
+        <h2>Detalles técnicos</h2>
+        {{ form_detalle.as_p }}
+
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a href="{% url 'lista_productos' %}" class="btn">Cancelar</a>
+    </form>
+{% endblock %}

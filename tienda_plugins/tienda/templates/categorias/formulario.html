@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if categoria %}Editar categoría{% else %}Crear categoría{% endif %} · RetroFX
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .form-panel form p {
+            margin-bottom: 12px;
+        }
+
+        .form-panel button {
+            margin-top: 8px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">
+        {% if categoria %}Editar categoría{% else %}Crear categoría{% endif %}
+    </h1>
+
+    <p class="page-subtitle">
+        Define y ajusta las familias principales de tus plug-ins RetroFX.
+    </p>
+
+    <p>
+        <a href="{% url 'lista_categorias' %}">← Volver a la lista de categorías</a>
+    </p>
+
+    <div class="form-panel">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">
+                {% if categoria %}Guardar cambios{% else %}Crear{% endif %}
+            </button>
+        </form>
+    </div>
+{% endblock %}

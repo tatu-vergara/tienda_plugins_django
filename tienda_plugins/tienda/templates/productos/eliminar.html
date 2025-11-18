@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Eliminar {{ producto.nombre }} · RetroFX
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Eliminar producto</h1>
+
+    <p class="page-subtitle">
+        Esta acción no se puede deshacer.
+    </p>
+
+    <p>
+        ¿Estás seguro de que quieres eliminar el producto
+        <strong>{{ producto.nombre }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            Sí, eliminar
+        </button>
+        <a href="{% url 'lista_productos' %}" class="btn">
+            Cancelar
+        </a>
+    </form>
+{% endblock %}
